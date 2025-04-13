@@ -9,7 +9,7 @@ import { Pet } from '../models/pets';
 export class PetService {
   private baseUrl = 'http://localhost:10000/pets/api/';
 
-  private token = 'TU_TOKEN'; // Puedes quitarlo si no necesitas auth
+  private token = 'TU_TOKEN';
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
