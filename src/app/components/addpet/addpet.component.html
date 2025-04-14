@@ -1,43 +1,38 @@
-<form [formGroup]="petForm" (ngSubmit)="savePet()">
-  <mat-card>
-    <mat-card-header>
-      <h2>{{ title }}</h2>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-form-field appearance="outline">
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="nombre" />
-      </mat-form-field>
+<!-- src/app/components/adduser/adduser.component.html  -->
+<mat-card>
+  <form [formGroup]="petForm" (ngSubmit)="savePet()">
 
-      <mat-form-field appearance="outline">
-        <mat-label>Especie</mat-label>
-        <input matInput formControlName="especie" />
-      </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" required />
+    </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Edad</mat-label>
-        <input matInput formControlName="edad" />
-      </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Especie</mat-label>
+      <input matInput formControlName="especie" required />
+    </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Descripción</mat-label>
-        <textarea matInput formControlName="descripcion"></textarea>
-      </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Edad</mat-label>
+      <input matInput formControlName="edad" type="number" required />
+    </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Imagen</mat-label>
-        <input matInput formControlName="imagen" />
-      </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="descripcion" required></textarea>
+    </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>¿Está adoptado?</mat-label>
-        <mat-checkbox formControlName="adoptado">Sí</mat-checkbox>
-      </mat-form-field>
-    </mat-card-content>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Imagen (URL)</mat-label>
+      <input matInput formControlName="imagen" />
+    </mat-form-field>
 
-    <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Guardar</button>
-      <button mat-raised-button color="accent" type="button" (click)="closepopup()">Cerrar</button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit">
+        {{ isEdit ? 'Actualizar' : 'Agregar' }}
+      </button>
+      <button mat-button type="button" (click)="closePopup()">Cancelar</button>
+    </div>
+
+  </form>
+</mat-card>

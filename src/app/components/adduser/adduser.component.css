@@ -1,0 +1,36 @@
+/* Estilo general para formularios de usuario */
+.full-width {
+  width: 100%;
+}
+
+/* Estilo para el contenedor del formulario */
+mat-card {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Estilo de los campos de entrada */
+mat-form-field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+/* Estilo para checkboxes si se agregan en el futuro */
+mat-checkbox {
+  margin: 16px 0;
+  display: block;
+}
+
+/* Grupo de botones: Agregar/Actualizar y Cancelar */
+.button-group {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* (Opcional) Ajuste visual para el select de roles */
+mat-select {
+  width: 100%;
+}

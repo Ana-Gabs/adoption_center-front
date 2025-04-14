@@ -1,0 +1,44 @@
+<mat-card>
+  <form [formGroup]="userForm" (ngSubmit)="saveUser()">
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre de Usuario</mat-label>
+      <input matInput formControlName="username" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="first_name" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Apellido Paterno</mat-label>
+      <input matInput formControlName="last_name" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Apellido Materno</mat-label>
+      <input matInput formControlName="second_last_name" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Rol</mat-label>
+      <mat-select formControlName="role" required>
+        <mat-option *ngFor="let r of roles" [value]="r">{{ r }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit">
+        {{ isEdit ? 'Actualizar' : 'Agregar' }}
+      </button>
+      <button mat-button type="button" (click)="closePopup()">Cancelar</button>
+    </div>
+
+  </form>
+</mat-card>

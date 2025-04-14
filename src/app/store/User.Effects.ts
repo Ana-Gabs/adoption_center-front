@@ -1,94 +1,96 @@
-// src/app/store/Pet.Effects.ts
+// src/app/store/User.Effects.ts
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { Injectable, inject } from '@angular/core';
-import { PetService } from '../services/pet.service';
+import { UserService } from '../services/user.services';
 import {
-  loadPets,
-  loadPetsSuccess,
-  loadPetsFailure,
-  deletePet,
-  deletePetSuccess,
-  deletePetFailure,
-  addPet,
-  addPetSuccess,
-  addPetFailure,
-  updatePet,
-  updatePetSuccess,
-  updatePetFailure,
+  loadUsers,
+  loadUsersSuccess,
+  loadUsersFailure,
+  deleteUser,
+  deleteUserSuccess,
+  deleteUserFailure,
+  addUser,
+  addUserSuccess,
+  addUserFailure,
+  updateUser,
+  updateUserSuccess,
+  updateUserFailure,
   emptyAction
-} from './Pet.Action';
+} from './User.Action';
 
 import { catchError, map, switchMap, exhaustMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
-export class PetEffects {
+export class UserEffects {
   actions$ = inject(Actions);
-  service = inject(PetService);
+  service = inject(UserService);
   toastr = inject(ToastrService);
 
-  loadPets$ = createEffect(() =>
+  // Efecto para cargar usuarios
+  loadUsers$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loadPets),
+      ofType(loadUsers),
       exhaustMap(() =>
         this.service.getAll().pipe(
           map((res: any) => {
             console.log('Respuesta desde el servicio:', res);
             if (Array.isArray(res)) {
-              console.log('Mascotas cargadas:', res);
-              return loadPetsSuccess({ list: res });
+              console.log('Usuarios cargados:', res);
+              return loadUsersSuccess({ list: res });
             }
             if (res && res.datos) {
-              console.log('Mascotas cargadas:', res.datos);
-              return loadPetsSuccess({ list: res.datos });
+              console.log('Usuarios cargados:', res.datos);
+              return loadUsersSuccess({ list: res.datos });
             }
             console.error('Error: respuesta del servicio no contiene "datos".');
-            return loadPetsFailure({ errMsg: 'No se encontraron mascotas' });
+            return loadUsersFailure({ errMsg: 'No se encontraron usuarios' });
           }),
           catchError((err) => {
-            console.error('Error cargando mascotas:', err);
-            return of(loadPetsFailure({ errMsg: err.message }));
+            console.error('Error cargando usuarios:', err);
+            return of(loadUsersFailure({ errMsg: err.message }));
           })
         )
       )
     )
   );
 
-
-  deletePet$ = createEffect(() =>
+  // Efecto para eliminar un usuario
+  deleteUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(deletePet),
+      ofType(deleteUser),
       switchMap((action) =>
-        this.service.delete(action.petId).pipe(
+        this.service.delete(action.userId).pipe(
           map(() => {
-            this.showAlert('Mascota eliminada correctamente', 'pass');
-            return deletePetSuccess({ petId: action.petId });
+            this.showAlert('Usuario eliminado correctamente', 'pass');
+            return deleteUserSuccess({ userId: action.userId });
           }),
           catchError((err) => {
             this.showAlert(err.message, 'fail');
-            return of(deletePetFailure({ errMsg: err.message }));
+            return of(deleteUserFailure({ errMsg: err.message }));
           })
         )
       )
     )
   );
 
-  addPet$ = createEffect(() =>
+  // Efecto para agregar un nuevo usuario
+  addUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(addPet),
+      ofType(addUser),
       switchMap((action) =>
         this.service.create(action.data).pipe(
           switchMap(() =>
             of(
-              addPetSuccess({ data: action.data }),
-              this.showAlert('Mascota agregada correctamente', 'pass')
+              addUserSuccess({ data: action.data }),
+              this.showAlert('Usuario agregado correctamente', 'pass')
             )
           ),
           catchError((err) =>
             of(
               this.showAlert(err.message, 'fail'),
-              addPetFailure({ errMsg: err.message })
+              addUserFailure({ errMsg: err.message })
             )
           )
         )
@@ -96,21 +98,22 @@ export class PetEffects {
     )
   );
 
-  updatePet$ = createEffect(() =>
+  // Efecto para actualizar un usuario
+  updateUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(updatePet),
+      ofType(updateUser),
       switchMap((action) =>
         this.service.update(action.data.id, action.data).pipe(
           switchMap(() =>
             of(
-              updatePetSuccess({ data: action.data }),
-              this.showAlert('Mascota actualizada correctamente', 'pass')
+              updateUserSuccess({ data: action.data }),
+              this.showAlert('Usuario actualizado correctamente', 'pass')
             )
           ),
           catchError((err) =>
             of(
               this.showAlert(err.message, 'fail'),
-              updatePetFailure({ errMsg: err.message })
+              updateUserFailure({ errMsg: err.message })
             )
           )
         )
@@ -118,6 +121,7 @@ export class PetEffects {
     )
   );
 
+  // Función para mostrar alertas
   showAlert(message: string, response: string) {
     response === 'pass'
       ? this.toastr.success(message)

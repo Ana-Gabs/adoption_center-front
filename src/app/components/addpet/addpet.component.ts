@@ -1,3 +1,4 @@
+// src./app/componenets/addpet/addpet.componnet.ts
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -14,6 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 import { addPet, getPet, updatePet } from '../../store/Pet.Action';
 import { selectPet } from '../../store/Pet.Selector';
 import { Subscription } from 'rxjs';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @Component({
   selector: 'app-addpet',
@@ -29,7 +32,8 @@ import { Subscription } from 'rxjs';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [provideNativeDateAdapter()]
 })
@@ -58,14 +62,14 @@ export class AddPetComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dialogdata = this.data;
+    console.log('Dialog Data:', this.dialogdata);
 
-    if (this.dialogdata.id) {
+    if (this.dialogdata?.id && this.dialogdata.id !== 0) {
       this.title = 'Editar Mascota';
       this.isEdit = true;
 
       this.store.dispatch(getPet({ petId: this.dialogdata.id }));
 
-      // Subscribe to the store to get the pet data
       this.subscription.add(
         this.store.select(selectPet).subscribe((item) => {
           if (item) {
@@ -80,40 +84,62 @@ export class AddPetComponent implements OnInit, OnDestroy {
           }
         })
       );
+    } else {
+      console.log('No ID passed for editing, or adding a new pet.');
     }
   }
 
+
   ngOnDestroy(): void {
-    this.subscription.unsubscribe(); // Unsubscribe to avoid memory leaks
+    this.subscription.unsubscribe();
   }
 
   savePet(): void {
     if (this.petForm.valid) {
-      let _data: Pet = {
-        id: this.isEdit ? this.dialogdata.id : 0,
-        nombre: this.petForm.value.nombre as string,
-        especie: this.petForm.value.especie as string,
-        edad: Number(this.petForm.value.edad),
-        descripcion: this.petForm.value.descripcion as string,
-        imagen: this.petForm.value.imagen as string,
-        adoptado: this.petForm.value.adoptado as boolean
+      let formValue = this.petForm.value;
+
+      // Convertir edad a número si tiene valor
+      if (formValue.edad) {
+        formValue.edad = Number(formValue.edad);
+      }
+
+      // Eliminar campos vacíos (null, '', undefined)
+      Object.keys(formValue).forEach(key => {
+        const value = formValue[key];
+        if (
+          value === null ||
+          value === undefined ||
+          (typeof value === 'string' && value.trim() === '')
+        ) {
+          delete formValue[key];
+        }
+      });
+
+      // Agregar el ID
+      const petData: Pet = {
+        ...formValue,
+        id: this.isEdit ? this.dialogdata.id : 0
       };
 
+      console.log('Enviando a backend:', petData);
+
+      // Lógica según si es edición o nuevo
       if (this.isEdit) {
-        this.store.dispatch(updatePet({ data: _data }));
+        this.store.dispatch(updatePet({ data: petData }));
         this.toastr.success('Mascota actualizada correctamente.');
       } else {
-        this.store.dispatch(addPet({ data: _data }));
+        this.store.dispatch(addPet({ data: petData }));
         this.toastr.success('Mascota agregada correctamente.');
       }
 
-      this.closepopup();
+      this.closePopup();
     } else {
       this.toastr.error('Por favor, complete todos los campos requeridos.');
     }
   }
 
-  closepopup(): void {
+
+  closePopup(): void {
     this.ref.close();
   }
 }
