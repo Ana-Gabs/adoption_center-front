@@ -33,6 +33,13 @@
       </mat-select>
     </mat-form-field>
 
+    <ng-container *ngIf="!isEdit">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" type="password" required />
+      </mat-form-field>
+    </ng-container>
+
     <div class="button-group">
       <button mat-raised-button color="primary" type="submit">
         {{ isEdit ? 'Actualizar' : 'Agregar' }}

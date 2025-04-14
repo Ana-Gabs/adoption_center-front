@@ -52,19 +52,21 @@ export class AddUserComponent implements OnInit, OnDestroy {
       last_name: new FormControl('', Validators.required),
       second_last_name: new FormControl('', Validators.required),
       role: new FormControl('', Validators.required),
+      password: new FormControl('')
     });
+    
   }
 
   ngOnInit(): void {
     this.dialogdata = this.data;
     console.log('Dialog Data:', this.dialogdata);
-
+  
     if (this.dialogdata?.id && this.dialogdata.id !== 0) {
       this.title = 'Editar Usuario';
       this.isEdit = true;
-
+  
       this.store.dispatch(getUser({ userId: this.dialogdata.id }));
-
+  
       this.subscription.add(
         this.store.select(selectUser).subscribe((item) => {
           if (item) {
@@ -74,13 +76,17 @@ export class AddUserComponent implements OnInit, OnDestroy {
               first_name: item.first_name,
               last_name: item.last_name,
               second_last_name: item.second_last_name,
-              role: item.role
+              role: item.role,
+              password: '' 
             });
           }
         })
       );
+    } else {
+      this.userForm.get('password')?.setValidators(Validators.required);
     }
   }
+  
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

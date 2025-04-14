@@ -13,9 +13,11 @@ import { routes } from './app.routes';
 
 // Reducers
 import { petReducer } from './store/Pet.Reducer';
+import { userReducer } from './store/User.Reducer';
 
 // Effects
 import { PetEffects } from './store/Pet.Effects';
+import { UserEffects } from './store/User.Effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,9 +29,11 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideStore({
       pet: petReducer,
+      user: userReducer,
     }),
     provideEffects([
       PetEffects,
+      UserEffects,
     ]
 
   ),

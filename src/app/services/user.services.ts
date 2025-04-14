@@ -7,13 +7,13 @@ import { User } from '../models/user'; // Asegúrate de tener un modelo User ade
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'http://localhost:10000/users/'; // URL de usuarios
+  private baseUrl = 'http://localhost:10000/users/'; 
 
-  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NjM2OTY2LCJpYXQiOjE3NDQ2MzU3NjYsImp0aSI6IjZmMGQ1NGI2ZjJmYjQ3MTE5OTFiNzkxYTljZDllOWQyIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJnYWJzIiwiZW1haWwiOiJnYWJzQGdtYWlsLmNvbSIsImlzX3N0YWZmIjpmYWxzZSwicm9sZSI6IkFkbWluIn0._wRwxKvN3ebbKkMtXPwgPzeJabPFh1x8II6Mr-6NUiU'; // Token de autenticación
+  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NjUyNTQ4LCJpYXQiOjE3NDQ2NTEzNDgsImp0aSI6IjM0ZmU0YzkxM2FiZDQ0MDU4YzBkNzc5MWJhNDgzNGViIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJnYWJzIiwiZW1haWwiOiJnYWJzQGdtYWlsLmNvbSIsImlzX3N0YWZmIjpmYWxzZSwicm9sZSI6IkFkbWluIn0.NrPpb_7TroFLpEWqFCwXTZZAyC3_u0o9fZkj-aKrS5A'; 
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.token}`, // Autenticación con el token
+      Authorization: `Bearer ${this.token}`, 
     }),
   };
 
@@ -36,7 +36,7 @@ export class UserService {
 
   // Actualizar los datos de un usuario
   update(id: number, user: User) {
-    return this.http.put<User>(`${this.baseUrl}${id}/`, user, this.httpOptions);
+    return this.http.patch<User>(`${this.baseUrl}${id}/`, user, this.httpOptions);
   }
 
   // Eliminar un usuario
