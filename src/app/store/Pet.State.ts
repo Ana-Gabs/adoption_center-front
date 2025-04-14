@@ -1,4 +1,4 @@
-import { PetsModel } from "./Pet.model";
+import { PetsModel } from "./Pet.Model";
 
 export const petState: PetsModel = {
   list: [],

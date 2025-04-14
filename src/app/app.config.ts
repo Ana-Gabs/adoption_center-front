@@ -5,6 +5,7 @@ import { provideToastr } from 'ngx-toastr';
 import { provideHttpClient, withFetch } from '@angular/common/http';  // Asegúrate de importar withFetch aquí
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
@@ -23,12 +24,15 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
     provideToastr(),
+    provideAnimations(),
     provideStore({
       pet: petReducer,
     }),
     provideEffects([
       PetEffects,
-    ]),
+    ]
+
+  ),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
-  ]
+  ],
 };

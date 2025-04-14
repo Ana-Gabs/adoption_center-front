@@ -1,7 +1,12 @@
+/* src/app/components/pet/pet.componnet.css */
 .mdc-card {
   margin: 2%;
 }
 
 .mdc-button {
   margin: 2px;
+}
+
+table {
+  width: 100%;
 }

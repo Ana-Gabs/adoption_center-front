@@ -28,18 +28,19 @@ export class PetComponent implements OnInit {
   constructor(private service: PetService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.loadPets();
+    this.loadPets();  // Cargar mascotas al inicializar el componente
   }
 
   loadPets() {
     this.service.getAll().subscribe((pets) => {
-      this.petList = pets;
-      this.dataSource = new MatTableDataSource(this.petList);
+      console.log('Mascotas desde API:', pets);  // Log de los datos desde la API
+      this.petList = pets;  // Asignar los datos a petList
+      this.dataSource = new MatTableDataSource(this.petList);  // Asignar a dataSource
+      console.log('DataSource actualizado:', this.dataSource);  // Log de dataSource
     });
   }
 
   editPet(id: number) {
-    // Aquí podrías abrir un diálogo para editar
   }
 
   deletePet(id: number) {
