@@ -1,5 +1,6 @@
+// src/app/store/Pet.Selector.ts
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { PetsModel } from "./Pet.model";
+import { PetsModel } from "./Pet.Model";
 
 const getPetsState = createFeatureSelector<PetsModel>('pet');
 

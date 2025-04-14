@@ -1,3 +1,4 @@
+// src/app/store/Pet.Effects.ts
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { Injectable, inject } from '@angular/core';
 import { PetService } from '../services/pet.service';

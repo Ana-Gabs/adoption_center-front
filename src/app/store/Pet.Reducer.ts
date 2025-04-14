@@ -1,3 +1,4 @@
+// src/app/store/Pet.Reducer.ts
 import { createReducer, on } from "@ngrx/store";
 import { petState } from "./Pet.State";
 import { deletePetSuccess, loadPets, getPet, loadPetsFailure, loadPetsSuccess, addPetSuccess, updatePetSuccess } from "./Pet.Action";
