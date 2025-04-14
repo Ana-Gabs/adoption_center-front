@@ -9,7 +9,7 @@ import { Pet } from '../models/pets';
 export class PetService {
   private baseUrl = 'http://localhost:10000/pets/api/';
 
-  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NTg5Njc4LCJpYXQiOjE3NDQ1ODg0NzgsImp0aSI6ImI3ZTkzZTZkOTRlMTQyYjQ4NTA5NDkyOGMyNmM0ZGQwIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJnYWJzIiwiZW1haWwiOiJnYWJzQGdtYWlsLmNvbSIsImlzX3N0YWZmIjpmYWxzZSwicm9sZSI6IkFkbWluIn0.uYsczDskvhtKTyNKfAJTJ6lnLDg5DhhkDwqVVoMgiTA';
+  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NjA2MTIyLCJpYXQiOjE3NDQ2MDQ5MjIsImp0aSI6ImQ1ODE2MmNkZGZiNDQxYWI5MmVmYTkwZDFhZjEyNDRiIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiJnYWJzIiwiZW1haWwiOiJnYWJzQGdtYWlsLmNvbSIsImlzX3N0YWZmIjpmYWxzZSwicm9sZSI6IkFkbWluIn0.o1TGr7Qyip5nO6lhEjSsOHz86-TDIBB2KQ7P3pAyDDk';
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
